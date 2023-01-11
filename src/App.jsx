@@ -31,13 +31,16 @@ function App() {
 		
 		if(actionEqual){
 			const result = operationCase(numberchange,temporalOperation)
-			setNumberchange(result.str_res)
-			setActionOperation(false)
-			setTemporalSymbol(false)
-			setActionEqual(false)
+			if(result.str_res!=="NaN"){
+				setNumberchange(result.str_res)
+				setActionOperation(false)
+				setTemporalSymbol(false)
+				setActionEqual(false)
+			}
+
+			
 		}
 	}
-	console.log(temporalSymbol)
 
 	const handleReset=()=>{
 		setNumberchange("0")
@@ -94,17 +97,16 @@ function App() {
 		}else{
 
 			if(!temporalSymbol){
-				console.log("se puso true")
-				console.log(numberchange)
-				console.log(temporalOperation)
 				//cuando de click y este en true tendrá que guardar el nuevo numero
 				const result = operationCase(numberchange,temporalOperation)
+				
 				setDataTemp({...dataTemp,number2:result.number2})
 				// setDataHistory({...dataHistory,dataTemp})
 				setActionOperation(false)
 				setNumberchange(result.str_res)
+
+				console.log(result)
 			}else{
-				console.log("entro al segundo")
 				const setNumberReplace=numberchange.slice(0,numberchange.length-1)
 				setNumberchange(setNumberReplace+operation)
 				setTemporalOperation(operation)
