@@ -4,7 +4,8 @@ function Teclado({
     handleChangeKeyboard,
     handleClickOperation,
     handleReset,
-    resultOperation
+    resultOperation,
+	handleCleanCaracter
 }) {
     return (
         <div className="calculator-keys">
@@ -34,6 +35,8 @@ function Teclado({
 				<button type="button" className="all-clear function btn btn-danger btn-sm" onClick={()=>{handleReset()}} >AC</button>
 
 				<button type="button" className="equal-sign operator btn btn-default" onClick={()=>{resultOperation()}}>=</button>
+
+				<button type="button" className="all-clear function btn btn-danger btn-sm" onClick={()=>{handleCleanCaracter()}} >DEL de wiki</button>
 
 			</div>
     )

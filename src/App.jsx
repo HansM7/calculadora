@@ -19,15 +19,25 @@ function App() {
 
 	const [temporalSymbol, setTemporalSymbol] = useState(false)
 
+	const [actionEqual, setActionEqual] = useState(false)
+
 	const [temporalOperation, setTemporalOperation] = useState("")
 
+	const [continueChange, setContinueChange] = useState(false)
+
 	const resultOperation=()=>{
-		const result = operationCase(numberchange,temporalOperation)
-		setNumberchange(result.str_res)
-		setActionOperation(false)
-		// setTemporalSymbol(false)
-		// setTemporalOperation("")
+
+		// console.log(temporalSymbol)
+		
+		if(actionEqual){
+			const result = operationCase(numberchange,temporalOperation)
+			setNumberchange(result.str_res)
+			setActionOperation(false)
+			setTemporalSymbol(false)
+			setActionEqual(false)
+		}
 	}
+	console.log(temporalSymbol)
 
 	const handleReset=()=>{
 		setNumberchange("0")
@@ -37,19 +47,28 @@ function App() {
 	}
 
 	const handleChangeKeyboard=(numero_text)=>{
+
+		const dataKeyBoards=["1","2","3","4","5","6","7","8","9","0"]
 		
 		if(numero_text==="."){
 			setNumberchange(numberchange+numero_text)
+			setContinueChange(true)
+		}else if(dataKeyBoards.includes(numero_text)){
+			if(numero_text==="0"){
+				if(numberchange.length===1){
+					setNumberchange(numero_text)
+				}else{
+					setNumberchange(numberchange+numero_text)
+				}
+			}else{
+				if(numberchange==="0"){
+					setNumberchange(numero_text)
+				}else{
+					setNumberchange(numberchange+numero_text)
+				}
+			}
 		}
 
-		if(temporalOperation){
-			setNumberchange(numberchange+numero_text)
-		}else{
-		setNumberchange(numero_text)
-
-		}
-
-		
 		setTemporalSymbol(false)
 		
 	}
@@ -68,6 +87,8 @@ function App() {
 				setActionOperation(true)
 
 				setTemporalSymbol(true)
+
+				setActionEqual(true)
 			
 			
 		}else{
@@ -92,6 +113,11 @@ function App() {
 		
 	}
 
+	const handleCleanCaracter=()=>{
+		const setNumberReplace=numberchange.slice(0,numberchange.length-1)
+		setNumberchange(setNumberReplace)
+	}
+
 
 	return (
 		<div className="calculator card">
@@ -104,6 +130,7 @@ function App() {
 			handleClickOperation={handleClickOperation}
 			handleReset={handleReset}
 			resultOperation={resultOperation}
+			handleCleanCaracter={handleCleanCaracter}
 			/>
 			
 		</div>
