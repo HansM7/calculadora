@@ -80,32 +80,70 @@ function App() {
 
 		if(!actionOperation){
 
-			
+			console.log("action 1")
+
+			if(numberchange.length===0){
+				if(operation==="-"){
+					setTemporalOperation(operation)
+					// añado al valor del input el signo a operar
+					setNumberchange(numberchange+operation)
+					//guardo en la variable temporal el primer numero y la operacion
+					setDataTemp({...dataTemp,number1:numberchange,operation:operation})
+					//cambio el estado de la accion
+					if(numberchange.length>0){
+						setActionOperation(true)
+	
+						setTemporalSymbol(true)
+	
+						setActionEqual(true)
+					}
+				}
+			}else{
 				setTemporalOperation(operation)
-				// añado al valor del input el signo a operar
-				setNumberchange(numberchange+operation)
-				//guardo en la variable temporal el primer numero y la operacion
-				setDataTemp({...dataTemp,number1:numberchange,operation:operation})
-				//cambio el estado de la accion
-				setActionOperation(true)
+					// añado al valor del input el signo a operar
+					setNumberchange(numberchange+operation)
+					//guardo en la variable temporal el primer numero y la operacion
+					setDataTemp({...dataTemp,number1:numberchange,operation:operation})
+					//cambio el estado de la accion
+					if(numberchange.length>0){
+						setActionOperation(true)
+	
+						setTemporalSymbol(true)
+	
+						setActionEqual(true)
+					}
+			}
 
-				setTemporalSymbol(true)
-
-				setActionEqual(true)
 			
 			
 		}else{
 
+			console.log(numberchange)
+
 			if(!temporalSymbol){
 				//cuando de click y este en true tendrá que guardar el nuevo numero
-				const result = operationCase(numberchange,temporalOperation)
+				if(numberchange.length===0){
+					console.log("aqui")
 				
-				setDataTemp({...dataTemp,number2:result.number2})
-				// setDataHistory({...dataHistory,dataTemp})
-				setActionOperation(false)
-				setNumberchange(result.str_res)
+					setTemporalOperation(operation)
+					// añado al valor del input el signo a operar
+					setNumberchange(numberchange+operation)
+					//guardo en la variable temporal el primer numero y la operacion
+					setDataTemp({...dataTemp,number1:numberchange,operation:operation})
+					//cambio el estado de la accion
 
-				console.log(result)
+				}else{
+					console.log("aqui 2")
+					const result = operationCase(numberchange,temporalOperation)
+				
+					setDataTemp({...dataTemp,number2:result.number2})
+					// setDataHistory({...dataHistory,dataTemp})
+					setActionOperation(false)
+					setNumberchange(result.str_res)
+
+					console.log(result)
+				}
+				
 			}else{
 				const setNumberReplace=numberchange.slice(0,numberchange.length-1)
 				setNumberchange(setNumberReplace+operation)
